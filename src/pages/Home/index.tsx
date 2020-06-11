@@ -2,7 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import weatherAPI from '../../services/weatherApi';
 
-import './styles.css';
+import {
+  Container,
+  Title,
+  Form,
+  Row,
+  DefaultCities,
+  CapitalTitles,
+} from './styles';
 
 const Home = () => {
   const [search, setSearch] = useState('');
@@ -56,9 +63,9 @@ const Home = () => {
   }, [loadDefault]);
 
   return (
-    <div className="container">
-      <span className="title">Previsão do Tempo</span>
-      <div className="form">
+    <Container>
+      <Title>Previsão do Tempo</Title>
+      <Form>
         <input
           type="text"
           className="inputCity"
@@ -71,63 +78,67 @@ const Home = () => {
         >
           <FiSearch color="#999" size={24} />
         </button>
-      </div>
-      <span className="row" />
+      </Form>
+      <Row />
       <div>
-        <h2 style={{ marginTop: '15px' }}>Capitais</h2>
-        <div className="defaultCities">
-          <div className="grid">
-            <section style={{ marginBottom: '10px' }}>
+        <CapitalTitles>Capitais</CapitalTitles>
+        <DefaultCities>
+          <div>
+            <section>
               <span>Min</span>
               <span>Máx</span>
               <strong />
             </section>
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+            <div>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
 
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
 
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
+            </div>
           </div>
 
-          <div className="grid" style={{ marginLeft: '100px' }}>
-            <section style={{ marginBottom: '10px' }}>
+          <div>
+            <section>
               <span>Min</span>
               <span>Máx</span>
               <strong />
             </section>
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+            <div>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
 
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
 
-            <section>
-              <strong>18℃</strong>
-              <strong>102℉</strong>
-              <strong>Rio de janeiro</strong>
-            </section>
+              <section>
+                <strong>18℃</strong>
+                <strong>102℃</strong>
+                <strong>Rio de janeiro</strong>
+              </section>
+            </div>
           </div>
-        </div>
+        </DefaultCities>
       </div>
-    </div>
+    </Container>
   );
 };
 
