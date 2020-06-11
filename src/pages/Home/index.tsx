@@ -75,7 +75,7 @@ const Home = () => {
       <Details>
         <City>
           <span>Niterói, RJ - Brasil</span>
-          <span>X</span>
+          <button type="button">X</button>
         </City>
         <p>20℃ Nublado</p>
 

@@ -40,7 +40,10 @@ export const City = styled.div`
   display: flex;
   justify-content: space-between;
 
-  span + span {
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
     font-size: 16px;
     color: #d8775a;
   }
