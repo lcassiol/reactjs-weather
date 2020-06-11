@@ -96,7 +96,7 @@ export const WindHumid = styled.div`
   }
 
   div + div {
-    margin-left: 20px;
+    margin-left: 40px;
   }
 `;
 

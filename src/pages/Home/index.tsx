@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiArrowUp, FiArrowDown } from 'react-icons/fi';
 import weatherAPI from '../../services/weatherApi';
 
 import {
@@ -82,11 +82,11 @@ const Home = () => {
         <MaxMinFeelslike>
           <div>
             <div>
-              <span>^</span>
+              <FiArrowDown color="#d8775a" />
               <span>16℃</span>
             </div>
             <div>
-              <span>v</span>
+              <FiArrowUp color="#d8775a" />
               <span>12℃</span>
             </div>
           </div>
