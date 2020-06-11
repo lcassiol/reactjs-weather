@@ -35,6 +35,17 @@ export const Details = styled.div`
   }
 `;
 
+export const City = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+
+  span + span {
+    font-size: 16px;
+    color: #d8775a;
+  }
+`;
+
 export const MaxMinFeelslike = styled.div`
   display: flex;
   flex: 1;

@@ -6,6 +6,7 @@ import {
   Container,
   Title,
   Details,
+  City,
   MaxMinFeelslike,
   Feelslike,
   WindHumid,
@@ -72,8 +73,12 @@ const Home = () => {
     <Container>
       <Title>Previsão do Tempo</Title>
       <Details>
-        <span>Niterói, RJ - Brasil</span>
+        <City>
+          <span>Niterói, RJ - Brasil</span>
+          <span>X</span>
+        </City>
         <p>20℃ Nublado</p>
+
         <MaxMinFeelslike>
           <div>
             <div>
