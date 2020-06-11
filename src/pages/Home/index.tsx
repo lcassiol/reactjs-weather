@@ -5,6 +5,12 @@ import weatherAPI from '../../services/weatherApi';
 import {
   Container,
   Title,
+  Details,
+  MaxMinFeelslike,
+  Feelslike,
+  WindHumid,
+  Line,
+  Forecast,
   Form,
   Row,
   DefaultCities,
@@ -65,6 +71,76 @@ const Home = () => {
   return (
     <Container>
       <Title>Previsão do Tempo</Title>
+      <Details>
+        <span>Niterói, RJ - Brasil</span>
+        <p>20℃ Nublado</p>
+        <MaxMinFeelslike>
+          <div>
+            <div>
+              <span>^</span>
+              <span>16℃</span>
+            </div>
+            <div>
+              <span>v</span>
+              <span>12℃</span>
+            </div>
+          </div>
+          <Feelslike>
+            <span>Sensação</span>
+            <span>19℃</span>
+          </Feelslike>
+        </MaxMinFeelslike>
+        <WindHumid>
+          <div>
+            <div>
+              <span>Vento</span>
+              <span>18km/h</span>
+            </div>
+          </div>
+          <div>
+            <span>Humidade</span>
+            <span>89%</span>
+          </div>
+        </WindHumid>
+        <Line />
+        <Forecast>
+          <div>
+            <p>Terça</p>
+            <div>
+              <span>18℃</span>
+              <span>20℃</span>
+            </div>
+          </div>
+          <div>
+            <p>Quarta</p>
+            <div>
+              <span>18℃</span>
+              <span>20℃</span>
+            </div>
+          </div>
+          <div>
+            <p>Quinta</p>
+            <div>
+              <span>18℃</span>
+              <span>20℃</span>
+            </div>
+          </div>
+          <div>
+            <p>Sexta</p>
+            <div>
+              <span>18℃</span>
+              <span>20℃</span>
+            </div>
+          </div>
+          <div>
+            <p>Sábado</p>
+            <div>
+              <span>18℃</span>
+              <span>20℃</span>
+            </div>
+          </div>
+        </Forecast>
+      </Details>
       <Form>
         <input
           type="text"
