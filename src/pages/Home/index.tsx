@@ -56,66 +56,26 @@ const Home = () => {
   }, [loadDefault]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        marginTop: '50px',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <span
-        style={{
-          marginBottom: '30px',
-          color: '#fff',
-          fontSize: '48px',
-          fontFamily: 'Ubuntu',
-        }}
-      >
-        Previsão do Tempo
-      </span>
-      <div style={{ display: 'flex', width: '400px', alignItems: 'center' }}>
+    <div className="container">
+      <span className="title">Previsão do Tempo</span>
+      <div className="form">
         <input
           type="text"
+          className="inputCity"
           placeholder="Insira aqui o nome da sua cidade"
-          style={{
-            flex: 1,
-            height: '38px',
-            padding: '10px',
-            fontSize: '16px',
-          }}
         />
         <button
           type="button"
           onClick={() => alert('teste')}
-          style={{
-            position: 'relative',
-            left: '-32px',
-            background: 'transparent',
-            border: 'none',
-          }}
+          className="searchButton"
         >
           <FiSearch color="#999" size={24} />
         </button>
       </div>
-      <span
-        style={{
-          width: '550px',
-          marginTop: '40px',
-          borderTopStyle: 'solid',
-          borderTopWidth: '0.25px',
-          borderTopColor: '#fff',
-        }}
-      />
+      <span className="row" />
       <div>
         <h2 style={{ marginTop: '15px' }}>Capitais</h2>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: '20px',
-          }}
-        >
+        <div className="defaultCities">
           <div className="grid">
             <section style={{ marginBottom: '10px' }}>
               <span>Min</span>
