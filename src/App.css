@@ -1,6 +1,6 @@
 :root {
   --primary-color: #34cb79;
-  --title-color: #322153;
+  --title-color: #fff;
   --text-color: #6c6c80;
 }
 
@@ -14,7 +14,6 @@ body {
   height: 100vh;
   background: linear-gradient(to top, #cec257, #d05935);
   -webkit-font-smoothing: antialiased;
-  color: var(--text-color);
 }
 
 body,
