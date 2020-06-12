@@ -14,6 +14,7 @@ import {
 import Details from './Details';
 
 interface DefaultWeatherProps {
+  name: string;
   main: {
     feels_like: number;
     temp_max: number;
@@ -43,7 +44,7 @@ const Home = () => {
   }, [search]);
 
   const loadDefault = useCallback((city: string) => {
-    return weatherAPI.get('weather', {
+    return weatherAPI.get<DefaultWeatherProps>('weather', {
       params: {
         q: city,
         appid: '93bbe3ad2f8c6d1617d79ab06f4cc5d0',
@@ -80,6 +81,15 @@ const Home = () => {
     [handleSearch]
   );
 
+  const formatTemperature = useCallback((weather: DefaultWeatherProps) => {
+    return Object.assign(weather, {
+      main: {
+        temp_max: `${String(weather.main.temp_max).slice(0, 2)}℃`,
+        temp_min: `${String(weather.main.temp_min).slice(0, 2)}℃`,
+      },
+    });
+  }, []);
+
   useEffect(() => {
     async function initialValues() {
       const [
@@ -98,12 +108,13 @@ const Home = () => {
         loadDefault('Curitiba,BR'),
       ]);
 
-      setRecifeWeather(responseRecife.data);
-      setSPWeather(responseSP.data);
-      setBrasiliaWeather(responseBrasilia.data);
-      setBelemWeather(responseBelem.data);
-      setSalvadorWeather(responseSalvador.data);
-      setCuritibaWeather(responseCuritiba.data);
+      setRecifeWeather(formatTemperature(responseRecife.data));
+
+      setSPWeather(formatTemperature(responseSP.data));
+      setBrasiliaWeather(formatTemperature(responseBrasilia.data));
+      setBelemWeather(formatTemperature(responseBelem.data));
+      setSalvadorWeather(formatTemperature(responseSalvador.data));
+      setCuritibaWeather(formatTemperature(responseCuritiba.data));
     }
 
     initialValues();
@@ -140,27 +151,23 @@ const Home = () => {
             <div>
               {recifeWeather && (
                 <section>
-                  <strong>{recifeWeather.main.temp_min}℃</strong>
-                  <strong>{recifeWeather.main.temp_max}℃</strong>
-                  <strong>Recife</strong>
+                  <strong>{recifeWeather.main.temp_min}</strong>
+                  <strong>{recifeWeather.main.temp_max}</strong>
+                  <strong>{recifeWeather.name}</strong>
                 </section>
               )}
               {spWeather && (
                 <section>
-                  <strong>
-                    {String(spWeather.main.temp_min).slice(0, 2)}℃
-                  </strong>
-                  <strong>
-                    {String(spWeather.main.temp_max).slice(0, 2)}℃
-                  </strong>
-                  <strong>São Paulo</strong>
+                  <strong>{spWeather.main.temp_min}</strong>
+                  <strong>{spWeather.main.temp_max}</strong>
+                  <strong>{spWeather.name}</strong>
                 </section>
               )}
               {brasiliaWeather && (
                 <section>
-                  <strong>{brasiliaWeather?.main.temp_min}℃</strong>
-                  <strong>{brasiliaWeather?.main.temp_max}℃</strong>
-                  <strong>Brasília</strong>
+                  <strong>{brasiliaWeather.main.temp_min}</strong>
+                  <strong>{brasiliaWeather.main.temp_max}</strong>
+                  <strong>{brasiliaWeather.name}</strong>
                 </section>
               )}
             </div>
@@ -175,24 +182,24 @@ const Home = () => {
             <div>
               {belemWeather && (
                 <section>
-                  <strong>{belemWeather?.main.temp_min}℃</strong>
-                  <strong>{belemWeather?.main.temp_max}℃</strong>
-                  <strong>Bélem</strong>
+                  <strong>{belemWeather.main.temp_min}</strong>
+                  <strong>{belemWeather.main.temp_max}</strong>
+                  <strong>{belemWeather.name}</strong>
                 </section>
               )}
               {salvadorWeather && (
                 <section>
-                  <strong>{salvadorWeather?.main.temp_min}℃</strong>
-                  <strong>{salvadorWeather?.main.temp_max}℃</strong>
-                  <strong>Salvador</strong>
+                  <strong>{salvadorWeather.main.temp_min}</strong>
+                  <strong>{salvadorWeather.main.temp_max}</strong>
+                  <strong>{salvadorWeather.name}</strong>
                 </section>
               )}
 
-              {belemWeather && (
+              {curitibaWeather && (
                 <section>
-                  <strong>{belemWeather?.main.temp_min}℃</strong>
-                  <strong>{belemWeather?.main.temp_max}℃</strong>
-                  <strong>Belem</strong>
+                  <strong>{curitibaWeather.main.temp_min}</strong>
+                  <strong>{curitibaWeather.main.temp_max}</strong>
+                  <strong>{curitibaWeather.name}</strong>
                 </section>
               )}
             </div>
