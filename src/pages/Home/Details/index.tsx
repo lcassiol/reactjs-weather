@@ -11,12 +11,16 @@ import {
   Forecast,
 } from './styles';
 
-const Details = () => {
+interface Props {
+  setShowDetails: (show: boolean) => void;
+}
+
+const Details: React.FC<Props> = ({ setShowDetails }) => {
   return (
     <Container>
       <City>
         <span>Niterói, RJ - Brasil</span>
-        <button type="button" onClick={() => {}}>
+        <button type="button" onClick={() => setShowDetails(false)}>
           X
         </button>
       </City>

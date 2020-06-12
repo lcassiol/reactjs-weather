@@ -22,9 +22,9 @@ interface DefaultWeatherProps {
   };
 }
 
-const Home = () => {
+const Home: React.FC = () => {
+  const [showDetails, setShowDetails] = useState(true);
   const [search, setSearch] = useState('');
-  const [showDetails, setShowDetails] = useState(false);
   const [recifeWeather, setRecifeWeather] = useState<DefaultWeatherProps>();
   const [spWeather, setSPWeather] = useState<DefaultWeatherProps>();
   const [brasiliaWeather, setBrasiliaWeather] = useState<DefaultWeatherProps>();
@@ -55,9 +55,6 @@ const Home = () => {
   }, []);
 
   const handleSearch = useCallback(async () => {
-    console.log('search new weather');
-    console.log(search);
-
     const { data } = await weatherAPI.get('forecast', {
       params: {
         q: `${search},BR`,
@@ -117,13 +114,13 @@ const Home = () => {
       setCuritibaWeather(formatTemperature(responseCuritiba.data));
     }
 
-    initialValues();
-  }, [loadDefault]);
+    // initialValues();
+  }, [loadDefault, formatTemperature]);
 
   return (
     <Container>
       <Title>Previsão do Tempo</Title>
-      {showDetails && <Details />}
+      {showDetails && <Details setShowDetails={setShowDetails} />}
 
       <Form>
         <input
