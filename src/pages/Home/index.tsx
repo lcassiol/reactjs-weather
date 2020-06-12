@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FiSearch } from 'react-icons/fi';
+import SearchWeatherProps from '../../interfaces/searchWeatherProps';
+import DefaultWeatherProps from '../../interfaces/defaultWeatherProps';
+import WeatherProps from '../../interfaces/weatherProps';
+
+import weatherConfig from '../../config/weatherProps';
 import weatherAPI from '../../services/weatherApi';
+import Details from './Details';
 
 import {
   Container,
@@ -11,20 +17,11 @@ import {
   CapitalTitles,
 } from './styles';
 
-import Details from './Details';
-
-interface DefaultWeatherProps {
-  name: string;
-  main: {
-    feels_like: number;
-    temp_max: number;
-    temp_min: number;
-  };
-}
-
 const Home: React.FC = () => {
   const [showDetails, setShowDetails] = useState(true);
   const [search, setSearch] = useState('');
+  const [weatherResult, setWeatherResult] = useState({} as WeatherProps);
+
   const [recifeWeather, setRecifeWeather] = useState<DefaultWeatherProps>();
   const [spWeather, setSPWeather] = useState<DefaultWeatherProps>();
   const [brasiliaWeather, setBrasiliaWeather] = useState<DefaultWeatherProps>();
@@ -47,7 +44,7 @@ const Home: React.FC = () => {
     return weatherAPI.get<DefaultWeatherProps>('weather', {
       params: {
         q: city,
-        appid: '93bbe3ad2f8c6d1617d79ab06f4cc5d0',
+        appid: weatherConfig.appKey,
         units: 'metric',
         lang: 'pt_br',
       },
@@ -55,16 +52,29 @@ const Home: React.FC = () => {
   }, []);
 
   const handleSearch = useCallback(async () => {
-    const { data } = await weatherAPI.get('forecast', {
+    const { data } = await weatherAPI.get<SearchWeatherProps>('forecast', {
       params: {
         q: `${search},BR`,
-        appid: '93bbe3ad2f8c6d1617d79ab06f4cc5d0',
+        appid: weatherConfig.appKey,
         units: 'metric',
         lang: 'pt_br',
       },
     });
 
     console.log(data);
+    const formattedForecast = {
+      city: data.city.name,
+      country: data.city.country,
+      temp: `${String(data.list[0].main.temp).slice(0, 2)}℃`,
+      wind: String(data.list[0].wind.speed),
+      feelslike: `${String(data.list[0].main.feels_like).slice(0, 2)}℃`,
+      tempMax: `${String(data.list[0].main.temp_max).slice(0, 2)}℃`,
+      tempMin: `${String(data.list[0].main.temp_min).slice(0, 2)}℃`,
+      humidity: data.list[0].main.humidity,
+      weather: data.list[0].weather[0].description,
+    };
+
+    setWeatherResult(formattedForecast);
     // percorrer a lista que vem, para pegar uma vez de cada dia,
     // para poder completar 5 dias
   }, [search]);
@@ -120,7 +130,9 @@ const Home: React.FC = () => {
   return (
     <Container>
       <Title>Previsão do Tempo</Title>
-      {showDetails && <Details setShowDetails={setShowDetails} />}
+      {showDetails && (
+        <Details setShowDetails={setShowDetails} weather={weatherResult} />
+      )}
 
       <Form>
         <input

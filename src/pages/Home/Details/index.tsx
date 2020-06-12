@@ -11,47 +11,50 @@ import {
   Forecast,
 } from './styles';
 
+import WeatherProps from '../../../interfaces/weatherProps';
+
 interface Props {
   setShowDetails: (show: boolean) => void;
+  weather: WeatherProps;
 }
 
-const Details: React.FC<Props> = ({ setShowDetails }) => {
+const Details: React.FC<Props> = ({ setShowDetails, weather }) => {
   return (
     <Container>
       <City>
-        <span>Niterói, RJ - Brasil</span>
+        <span>{`${weather.city} - ${weather.country}`}</span>
         <button type="button" onClick={() => setShowDetails(false)}>
           X
         </button>
       </City>
-      <p>20℃ Nublado</p>
+      <p>{`${weather.temp} ${weather.weather}`}</p>
 
       <MaxMinFeelslike>
         <div>
           <div>
             <FiArrowDown color="#d8775a" />
-            <span>16℃</span>
+            <span>{weather.tempMin}</span>
           </div>
           <div>
             <FiArrowUp color="#d8775a" />
-            <span>12℃</span>
+            <span>{weather.tempMax}</span>
           </div>
         </div>
         <Feelslike>
           <span>Sensação</span>
-          <span>19℃</span>
+          <span>{weather.feelslike}</span>
         </Feelslike>
       </MaxMinFeelslike>
       <WindHumid>
         <div>
           <div>
             <span>Vento</span>
-            <span>18km/h</span>
+            <span>{`${weather.wind}km/h`}</span>
           </div>
         </div>
         <div>
           <span>Humidade</span>
-          <span>89%</span>
+          <span>{`${weather.humidity}%`}</span>
         </div>
       </WindHumid>
       <Line />
