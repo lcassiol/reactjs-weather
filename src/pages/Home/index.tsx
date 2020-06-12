@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FiSearch } from 'react-icons/fi';
-import SearchWeatherProps from '../../interfaces/searchWeatherProps';
-import DefaultWeatherProps from '../../interfaces/defaultWeatherProps';
-import WeatherProps from '../../interfaces/weatherProps';
+import ForecastWeatherProps from '../../interfaces/IForecastWeatherProps';
+import DefaultWeatherProps from '../../interfaces/IDefaultWeatherProps';
+import WeatherProps from '../../interfaces/IWeatherProps';
 
 import weatherConfig from '../../config/weatherProps';
 import weatherAPI from '../../services/weatherApi';
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
   }, []);
 
   const handleSearch = useCallback(async () => {
-    const { data } = await weatherAPI.get<SearchWeatherProps>('forecast', {
+    const { data } = await weatherAPI.get<ForecastWeatherProps>('forecast', {
       params: {
         q: `${search},BR`,
         appid: weatherConfig.appKey,

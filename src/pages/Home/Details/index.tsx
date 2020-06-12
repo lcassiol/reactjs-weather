@@ -11,7 +11,7 @@ import {
   Forecast,
 } from './styles';
 
-import WeatherProps from '../../../interfaces/weatherProps';
+import WeatherProps from '../../../interfaces/IWeatherProps';
 
 interface Props {
   setShowDetails: (show: boolean) => void;
