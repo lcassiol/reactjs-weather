@@ -1,26 +1,35 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiSearch, FiArrowUp, FiArrowDown } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import weatherAPI from '../../services/weatherApi';
 
 import {
   Container,
   Title,
-  Details,
-  City,
-  MaxMinFeelslike,
-  Feelslike,
-  WindHumid,
-  Line,
-  Forecast,
   Form,
   Row,
   DefaultCities,
   CapitalTitles,
 } from './styles';
 
+import Details from './Details';
+
+interface DefaultWeatherProps {
+  main: {
+    feels_like: number;
+    temp_max: number;
+    temp_min: number;
+  };
+}
+
 const Home = () => {
   const [search, setSearch] = useState('');
   const [showDetails, setShowDetails] = useState(false);
+  const [recifeWeather, setRecifeWeather] = useState<DefaultWeatherProps>();
+  const [spWeather, setSPWeather] = useState<DefaultWeatherProps>();
+  const [brasiliaWeather, setBrasiliaWeather] = useState<DefaultWeatherProps>();
+  const [belemWeather, setBelemWeather] = useState<DefaultWeatherProps>();
+  const [salvadorWeather, setSalvadorWeather] = useState<DefaultWeatherProps>();
+  const [curitibaWeather, setCuritibaWeather] = useState<DefaultWeatherProps>();
 
   const searchWeather = useCallback(() => {
     return weatherAPI.get('forecast', {
@@ -88,92 +97,22 @@ const Home = () => {
         loadDefault('Salvador,BR'),
         loadDefault('Curitiba,BR'),
       ]);
+
+      setRecifeWeather(responseRecife.data);
+      setSPWeather(responseSP.data);
+      setBrasiliaWeather(responseBrasilia.data);
+      setBelemWeather(responseBelem.data);
+      setSalvadorWeather(responseSalvador.data);
+      setCuritibaWeather(responseCuritiba.data);
     }
 
-    // initialValues();
+    initialValues();
   }, [loadDefault]);
 
   return (
     <Container>
       <Title>Previsão do Tempo</Title>
-      {showDetails && (
-        <Details>
-          <City>
-            <span>Niterói, RJ - Brasil</span>
-            <button type="button" onClick={() => setShowDetails(false)}>
-              X
-            </button>
-          </City>
-          <p>20℃ Nublado</p>
-
-          <MaxMinFeelslike>
-            <div>
-              <div>
-                <FiArrowDown color="#d8775a" />
-                <span>16℃</span>
-              </div>
-              <div>
-                <FiArrowUp color="#d8775a" />
-                <span>12℃</span>
-              </div>
-            </div>
-            <Feelslike>
-              <span>Sensação</span>
-              <span>19℃</span>
-            </Feelslike>
-          </MaxMinFeelslike>
-          <WindHumid>
-            <div>
-              <div>
-                <span>Vento</span>
-                <span>18km/h</span>
-              </div>
-            </div>
-            <div>
-              <span>Humidade</span>
-              <span>89%</span>
-            </div>
-          </WindHumid>
-          <Line />
-          <Forecast>
-            <div>
-              <p>Terça</p>
-              <div>
-                <span>18℃</span>
-                <span>20℃</span>
-              </div>
-            </div>
-            <div>
-              <p>Quarta</p>
-              <div>
-                <span>18℃</span>
-                <span>20℃</span>
-              </div>
-            </div>
-            <div>
-              <p>Quinta</p>
-              <div>
-                <span>18℃</span>
-                <span>20℃</span>
-              </div>
-            </div>
-            <div>
-              <p>Sexta</p>
-              <div>
-                <span>18℃</span>
-                <span>20℃</span>
-              </div>
-            </div>
-            <div>
-              <p>Sábado</p>
-              <div>
-                <span>18℃</span>
-                <span>20℃</span>
-              </div>
-            </div>
-          </Forecast>
-        </Details>
-      )}
+      {showDetails && <Details />}
 
       <Form>
         <input
@@ -199,23 +138,31 @@ const Home = () => {
               <strong />
             </section>
             <div>
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>Recife</strong>
-              </section>
-
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>São Paulo</strong>
-              </section>
-
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>Brasília</strong>
-              </section>
+              {recifeWeather && (
+                <section>
+                  <strong>{recifeWeather.main.temp_min}℃</strong>
+                  <strong>{recifeWeather.main.temp_max}℃</strong>
+                  <strong>Recife</strong>
+                </section>
+              )}
+              {spWeather && (
+                <section>
+                  <strong>
+                    {String(spWeather.main.temp_min).slice(0, 2)}℃
+                  </strong>
+                  <strong>
+                    {String(spWeather.main.temp_max).slice(0, 2)}℃
+                  </strong>
+                  <strong>São Paulo</strong>
+                </section>
+              )}
+              {brasiliaWeather && (
+                <section>
+                  <strong>{brasiliaWeather?.main.temp_min}℃</strong>
+                  <strong>{brasiliaWeather?.main.temp_max}℃</strong>
+                  <strong>Brasília</strong>
+                </section>
+              )}
             </div>
           </div>
 
@@ -226,23 +173,28 @@ const Home = () => {
               <strong />
             </section>
             <div>
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>Belem</strong>
-              </section>
+              {belemWeather && (
+                <section>
+                  <strong>{belemWeather?.main.temp_min}℃</strong>
+                  <strong>{belemWeather?.main.temp_max}℃</strong>
+                  <strong>Bélem</strong>
+                </section>
+              )}
+              {salvadorWeather && (
+                <section>
+                  <strong>{salvadorWeather?.main.temp_min}℃</strong>
+                  <strong>{salvadorWeather?.main.temp_max}℃</strong>
+                  <strong>Salvador</strong>
+                </section>
+              )}
 
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>Salvador</strong>
-              </section>
-
-              <section>
-                <strong>18℃</strong>
-                <strong>102℃</strong>
-                <strong>Curitiba</strong>
-              </section>
+              {belemWeather && (
+                <section>
+                  <strong>{belemWeather?.main.temp_min}℃</strong>
+                  <strong>{belemWeather?.main.temp_max}℃</strong>
+                  <strong>Belem</strong>
+                </section>
+              )}
             </div>
           </div>
         </DefaultCities>
