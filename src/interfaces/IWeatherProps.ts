@@ -8,4 +8,9 @@ export default interface weather {
   tempMin: string;
   humidity: number;
   weather: string;
+  forecast: {
+    day: string;
+    tempMax: string;
+    tempMin: string;
+  }[];
 }

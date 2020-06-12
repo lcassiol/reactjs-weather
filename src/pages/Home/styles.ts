@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex: 1;
+  height: 100vh;
   margin-top: 50px;
   align-items: center;
   flex-direction: column;
@@ -53,6 +55,7 @@ export const DefaultCities = styled.div`
   flex-direction: row;
   margin-top: 20px;
   max-width: 500px;
+  padding-bottom: 50px;
 
   div + div {
     margin-left: 50px;

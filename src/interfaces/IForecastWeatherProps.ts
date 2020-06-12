@@ -20,6 +20,7 @@ export default interface searchWeather {
           description: string;
         }
       ];
+      dt_txt: string;
     }
   ];
 }

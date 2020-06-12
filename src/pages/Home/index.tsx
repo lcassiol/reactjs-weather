@@ -4,6 +4,7 @@ import ForecastWeatherProps from '../../interfaces/IForecastWeatherProps';
 import DefaultWeatherProps from '../../interfaces/IDefaultWeatherProps';
 import WeatherProps from '../../interfaces/IWeatherProps';
 
+import FormatAndCapitalize from '../../utils/formatAndCapitalizeString';
 import weatherConfig from '../../config/weatherProps';
 import weatherAPI from '../../services/weatherApi';
 import Details from './Details';
@@ -29,17 +30,6 @@ const Home: React.FC = () => {
   const [salvadorWeather, setSalvadorWeather] = useState<DefaultWeatherProps>();
   const [curitibaWeather, setCuritibaWeather] = useState<DefaultWeatherProps>();
 
-  const searchWeather = useCallback(() => {
-    return weatherAPI.get('forecast', {
-      params: {
-        q: search,
-        appid: '93bbe3ad2f8c6d1617d79ab06f4cc5d0',
-        units: 'metric',
-        lang: 'pt_br',
-      },
-    });
-  }, [search]);
-
   const loadDefault = useCallback((city: string) => {
     return weatherAPI.get<DefaultWeatherProps>('weather', {
       params: {
@@ -61,7 +51,23 @@ const Home: React.FC = () => {
       },
     });
 
-    console.log(data);
+    const forecastDays = data.list.map((item) => {
+      return {
+        day: FormatAndCapitalize(item.dt_txt),
+        tempMax: `${String(item.main.temp_max).slice(0, 2)}℃`,
+        tempMin: `${String(item.main.temp_min).slice(0, 2)}℃`,
+      };
+    });
+
+    const arrayDays: string[] = [forecastDays[0].day];
+    const filteredForecast = forecastDays.filter((item) => {
+      if (!arrayDays.includes(item.day)) {
+        arrayDays.push(item.day);
+        return true;
+      }
+      return false;
+    });
+
     const formattedForecast = {
       city: data.city.name,
       country: data.city.country,
@@ -72,11 +78,11 @@ const Home: React.FC = () => {
       tempMin: `${String(data.list[0].main.temp_min).slice(0, 2)}℃`,
       humidity: data.list[0].main.humidity,
       weather: data.list[0].weather[0].description,
+      forecast: filteredForecast,
     };
 
     setWeatherResult(formattedForecast);
-    // percorrer a lista que vem, para pegar uma vez de cada dia,
-    // para poder completar 5 dias
+    setShowDetails(true);
   }, [search]);
 
   const handleSearchKeyPress = useCallback(
@@ -124,7 +130,7 @@ const Home: React.FC = () => {
       setCuritibaWeather(formatTemperature(responseCuritiba.data));
     }
 
-    // initialValues();
+    initialValues();
   }, [loadDefault, formatTemperature]);
 
   return (

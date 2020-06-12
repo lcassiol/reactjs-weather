@@ -59,41 +59,16 @@ const Details: React.FC<Props> = ({ setShowDetails, weather }) => {
       </WindHumid>
       <Line />
       <Forecast>
-        <div>
-          <p>Terça</p>
-          <div>
-            <span>18℃</span>
-            <span>20℃</span>
-          </div>
-        </div>
-        <div>
-          <p>Quarta</p>
-          <div>
-            <span>18℃</span>
-            <span>20℃</span>
-          </div>
-        </div>
-        <div>
-          <p>Quinta</p>
-          <div>
-            <span>18℃</span>
-            <span>20℃</span>
-          </div>
-        </div>
-        <div>
-          <p>Sexta</p>
-          <div>
-            <span>18℃</span>
-            <span>20℃</span>
-          </div>
-        </div>
-        <div>
-          <p>Sábado</p>
-          <div>
-            <span>18℃</span>
-            <span>20℃</span>
-          </div>
-        </div>
+        {weather.forecast &&
+          weather.forecast.map((forecast) => (
+            <div key={forecast.day}>
+              <p>{forecast.day}</p>
+              <div>
+                <span>{forecast.tempMin}</span>
+                <span>{forecast.tempMax}</span>
+              </div>
+            </div>
+          ))}
       </Forecast>
     </Container>
   );
