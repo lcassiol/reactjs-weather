@@ -19,7 +19,7 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
-  const [showDetails, setShowDetails] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
   const [search, setSearch] = useState('');
   const [weatherResult, setWeatherResult] = useState({} as WeatherProps);
 

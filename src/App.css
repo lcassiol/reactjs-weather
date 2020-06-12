@@ -10,9 +10,15 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  height: 100vh;
+  min-height: 100%;
+  width: 100%;
   background: linear-gradient(to top, #edda2f, #de542a);
+  background-attachment: fixed;
+}
+
+body {
   -webkit-font-smoothing: antialiased;
 }
 
