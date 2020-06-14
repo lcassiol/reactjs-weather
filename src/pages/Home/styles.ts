@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
-  min-width: 482px;
+  min-width: 500px;
 `;
 
 export const Title = styled.span`
